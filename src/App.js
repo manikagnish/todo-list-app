@@ -1,9 +1,16 @@
+import Header from './components/Header';
+import Main from './components/Main';
+import { useContext } from 'react';
+import { GlobalContext } from './context/GlobalContext';
+
 function App() {
+  const { dark } = useContext(GlobalContext);
+  const [darkMode] = dark;
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline text-cyan-500">
-        Hello world!
-      </h1>
+    <div className={darkMode ? 'dark' : 'light'}>
+      <Header />
+      <Main />
     </div>
   );
 }
