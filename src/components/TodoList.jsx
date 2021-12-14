@@ -19,22 +19,9 @@ export default function TodoList() {
     setName('');
   };
 
-  const completed = [];
-  const active = [];
-
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].complete) {
-        completed.push(todos[i]);
-        localStorage.setItem('completedTodos', JSON.stringify(completed));
-      } else if (!todos[i].complete) {
-        active.push(todos[i]);
-        localStorage.setItem('activeTodos', JSON.stringify(active));
-      }
-    }
-  }, [todos, active, completed]);
+  }, [todos]);
 
   function displayList() {
     switch (listName) {
@@ -43,12 +30,13 @@ export default function TodoList() {
           <Todo key={todo.id} todo={todo} dispatch={dispatch} />
         ));
       case 'completed':
-        const arr = JSON.parse(localStorage.getItem('completedTodos')) || [];
+        const arr = todos.filter(todo => todo.complete) || [];
         return arr.map(todo => (
           <Todo key={todo.id} todo={todo} dispatch={dispatch} />
         ));
       case 'active':
-        return JSON.parse(localStorage.getItem('activeTodos')).map(todo => (
+        const arrActive = todos.filter(todo => !todo.complete) || [];
+        return arrActive.map(todo => (
           <Todo key={todo.id} todo={todo} dispatch={dispatch} />
         ));
 
