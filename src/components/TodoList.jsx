@@ -1,11 +1,14 @@
-import { useReducer, useContext } from 'react';
+import { useReducer, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { reducer } from '../context/AppReducer';
 import Todo from './Todo';
 import { ACTIONS } from '../context/GlobalContext';
 
 export default function TodoList() {
-  const [todos, dispatch] = useReducer(reducer, []);
+  const [todos, dispatch] = useReducer(
+    reducer,
+    JSON.parse(localStorage.getItem('todos')) || []
+  );
   const { getName } = useContext(GlobalContext);
   const [name, setName] = getName;
 
@@ -14,6 +17,10 @@ export default function TodoList() {
     dispatch({ type: ACTIONS.ADD_TODO, payload: name });
     setName('');
   };
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div>
@@ -25,9 +32,11 @@ export default function TodoList() {
           onChange={e => setName(e.target.value)}
         />
       </form>
-      {todos.map(todo => (
-        <Todo key={todo.id} todo={todo} dispatch={dispatch} />
-      ))}
+      <ul>
+        {todos.map(todo => (
+          <Todo key={todo.id} todo={todo} dispatch={dispatch} />
+        ))}
+      </ul>
     </div>
   );
 }
