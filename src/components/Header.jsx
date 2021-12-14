@@ -4,7 +4,7 @@ import { GlobalContext } from '../context/GlobalContext';
 import bgDeskLight from './images/bg-desktop-light.jpg';
 import bgDeskDark from './images/bg-desktop-dark.jpg';
 import bgMobileLight from './images/bg-mobile-light.jpg';
-import bgMobileDark from './images/bg-mobile-light.jpg';
+import bgMobileDark from './images/bg-mobile-dark.jpg';
 
 export default function Header() {
   const { dark } = useContext(GlobalContext);

@@ -8,16 +8,16 @@ export default function Navbar() {
   const [darkMode, setDarkMode] = dark;
 
   return (
-    <nav className="flex w-full justify-between items-center">
-      <span>TODO</span>
+    <nav className="flex w-full justify-between items-center text-slate-50 text-3xl mb-12">
+      <span className=" font-bold tracking-widest">TODO</span>
       {darkMode ? (
         <IoSunnySharp
-          className="cursor-pointer"
+          className="cursor-pointer text-2xl"
           onClick={() => setDarkMode(false)}
         />
       ) : (
         <BsMoonStarsFill
-          className="cursor-pointer"
+          className="cursor-pointer text-2xl"
           onClick={() => setDarkMode(true)}
         />
       )}

@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.bottom-nav-btn {
+  @apply font-bold hover:text-blueGray600 dark:hover:text-grayBlue100hover transition;
+}
+
+.todo-items {
+  @apply p-4 bg-white dark:bg-darkDesatBlue
+   list-none border-b border-y-blueGray200 flex items-center;
+}

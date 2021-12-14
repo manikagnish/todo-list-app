@@ -38,24 +38,24 @@ export default function TodoList() {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                className="p-4 bg-green-400 list-none border-4 border-y-cyan-900"
+                className="todo-items"
               >
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     dispatch({
                       type: ACTIONS.TOGGLE_TODO,
                       payload: { id: todo.id },
-                    })
-                  }
-                  className="p-2 bg-gray-700 text-stone-300"
+                    });
+                  }}
+                  className="p-2 bg-gray-700 text-stone-300 mr-4"
                 >
-                  toggle
+                  {todo.complete ? 'Uncheck' : 'Check'}
                 </button>
                 <span
                   className={
                     todo.complete
-                      ? 'text-slate-500 line-through'
-                      : 'text-slate-900'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
+                      : 'text-slate-900 dark:text-grayBlue100hover'
                   }
                 >
                   {todo.name}
@@ -67,9 +67,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300"
+                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
                 >
-                  close
+                  remove
                 </button>
               </li>
             )}
@@ -88,7 +88,7 @@ export default function TodoList() {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                className="p-4 bg-green-400 list-none border-4 border-y-cyan-900"
+                className="todo-items"
               >
                 <button
                   onClick={() =>
@@ -97,15 +97,15 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300"
+                  className="p-2 bg-gray-700 text-stone-300 mr-4"
                 >
-                  toggle
+                  {todo.complete ? 'Uncheck' : 'Check'}
                 </button>
                 <span
                   className={
                     todo.complete
-                      ? 'text-slate-500 line-through'
-                      : 'text-slate-900'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
+                      : 'text-slate-900 dark:text-grayBlue100hover'
                   }
                 >
                   {todo.name}
@@ -117,9 +117,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300"
+                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
                 >
-                  close
+                  remove
                 </button>
               </li>
             )}
@@ -138,7 +138,7 @@ export default function TodoList() {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                className="p-4 bg-green-400 list-none border-4 border-y-cyan-900"
+                className="todo-items"
               >
                 <button
                   onClick={() =>
@@ -147,15 +147,15 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300"
+                  className="p-2 bg-gray-700 text-stone-300 mr-4"
                 >
-                  toggle
+                  Check
                 </button>
                 <span
                   className={
                     todo.complete
-                      ? 'text-slate-500 line-through'
-                      : 'text-slate-900'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
+                      : 'text-slate-900 dark:text-grayBlue100hover'
                   }
                 >
                   {todo.name}
@@ -167,9 +167,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300"
+                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
                 >
-                  close
+                  remove
                 </button>
               </li>
             )}
@@ -194,7 +194,8 @@ export default function TodoList() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          className="text-black"
+          className="text-black w-full rounded p-4 mb-4 shadow-xl"
+          placeholder="Create a new todo..."
           value={name}
           onChange={e => setName(e.target.value)}
         />
@@ -203,7 +204,11 @@ export default function TodoList() {
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="tasks">
           {provided => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
+            <ul
+              className="rounded overflow-hidden shadow-xl"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
               {displayList()}
               {provided.placeholder}
             </ul>
@@ -211,11 +216,31 @@ export default function TodoList() {
         </Droppable>
       </DragDropContext>
 
-      <div className="p-4 bg-green-400 list-none">
-        <nav className="flex justify-between">
-          <button onClick={() => setListName('all')}>all</button>
-          <button onClick={() => setListName('active')}>active</button>
-          <button onClick={() => setListName('completed')}>completed</button>
+      <div
+        className="p-4 shadow-xl 
+      bg-white
+      dark:bg-darkDesatBlue"
+      >
+        <nav
+          className="flex justify-evenly  text-blueGray500 dark:text-grayBlue500 
+        
+        "
+        >
+          <button className="bottom-nav-btn" onClick={() => setListName('all')}>
+            All
+          </button>
+          <button
+            className="bottom-nav-btn"
+            onClick={() => setListName('active')}
+          >
+            Active
+          </button>
+          <button
+            className="bottom-nav-btn"
+            onClick={() => setListName('completed')}
+          >
+            Completed
+          </button>
         </nav>
       </div>
     </div>

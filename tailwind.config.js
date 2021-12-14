@@ -19,6 +19,9 @@ module.exports = {
       fontFamily: {
         josefin: ["'Josefin Sans'", "'sans-serif'"],
       },
+      letterSpacing: {
+        widest: '.25em',
+      },
     },
   },
   darkMode: 'class',
