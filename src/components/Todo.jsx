@@ -1,8 +1,11 @@
 import { ACTIONS } from '../context/GlobalContext';
 
-export default function Todo({ todo, dispatch }) {
+export default function Todo({ todo, dispatch, innerRef }) {
   return (
-    <li className="p-4 bg-green-400 list-none">
+    <li
+      ref={innerRef}
+      className="p-4 bg-green-400 list-none border-4 border-y-cyan-900"
+    >
       <button
         onClick={() =>
           dispatch({
