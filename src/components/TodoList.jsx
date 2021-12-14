@@ -1,7 +1,6 @@
 import { useReducer, useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { reducer } from '../context/AppReducer';
-import Todo from './Todo';
 import { ACTIONS } from '../context/GlobalContext';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -14,7 +13,6 @@ export default function TodoList() {
   const { getName } = useContext(GlobalContext);
   const [name, setName] = getName;
   const [listName, setListName] = useState('all');
-  // const [tasks, updateTasks] = useState(todos);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -185,7 +183,6 @@ export default function TodoList() {
 
   const handleDragEnd = result => {
     if (!result.destination) return;
-
     dispatch({
       type: ACTIONS.DRAG_TODO,
       payload: { des: result.destination.index, origin: result.source.index },
@@ -213,6 +210,7 @@ export default function TodoList() {
           )}
         </Droppable>
       </DragDropContext>
+
       <div className="p-4 bg-green-400 list-none">
         <nav className="flex justify-between">
           <button onClick={() => setListName('all')}>all</button>

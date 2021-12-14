@@ -3,7 +3,7 @@ import TodoList from './TodoList';
 
 export default function Main() {
   return (
-    <main className="bg-slate-500 dark:bg-red-500">
+    <main className="w-11/12 md:w-8/12 lg:w-6/12 mx-auto text-center relative z-10">
       <Navbar />
       <TodoList />
       <footer>Drag and drop to reorder list</footer>
