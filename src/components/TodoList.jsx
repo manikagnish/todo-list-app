@@ -47,7 +47,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     });
                   }}
-                  className="p-2 bg-gray-700 text-stone-300 mr-4"
+                  className="p-2 bg-gray-700 text-stone-300 mr-2"
                 >
                   {todo.complete ? 'Uncheck' : 'Check'}
                 </button>
@@ -97,7 +97,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 mr-4"
+                  className="p-2 bg-gray-700 text-stone-300 mr-2"
                 >
                   {todo.complete ? 'Uncheck' : 'Check'}
                 </button>
@@ -147,7 +147,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 mr-4"
+                  className="p-2 bg-gray-700 text-stone-300 mr-2"
                 >
                   Check
                 </button>
@@ -205,7 +205,7 @@ export default function TodoList() {
         <Droppable droppableId="tasks">
           {provided => (
             <ul
-              className="rounded overflow-hidden shadow-xl"
+              className="rounded overflow-hidden shadow-xl dark:shadow-black text-left"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -217,7 +217,7 @@ export default function TodoList() {
       </DragDropContext>
 
       <div
-        className="p-4 shadow-xl 
+        className="p-4 shadow-xl dark:shadow-black
       bg-white
       dark:bg-darkDesatBlue"
       >

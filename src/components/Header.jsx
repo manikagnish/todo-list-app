@@ -11,6 +11,8 @@ export default function Header() {
   const [darkMode] = dark;
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
+  console.log(darkMode);
+
   useEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth);

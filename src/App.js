@@ -11,8 +11,8 @@ function App() {
     <div
       className={
         darkMode
-          ? 'dark bg-black text-stone-50 h-screen'
-          : 'light bg-white text-stone-900 h-screen'
+          ? 'dark bg-black text-stone-50 min-h-screen'
+          : 'light bg-white text-stone-900 min-h-screen'
       }
     >
       <Header />

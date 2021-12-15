@@ -13,12 +13,15 @@ export default function Navbar() {
       {darkMode ? (
         <IoSunnySharp
           className="cursor-pointer text-2xl"
-          onClick={() => setDarkMode(false)}
+          onClick={() => {setDarkMode(false)
+          localStorage.setItem('darkMode',false)
+          }}
         />
       ) : (
         <BsMoonStarsFill
           className="cursor-pointer text-2xl"
-          onClick={() => setDarkMode(true)}
+          onClick={() => {setDarkMode(true)
+            localStorage.setItem('darkMode',true)}}
         />
       )}
     </nav>

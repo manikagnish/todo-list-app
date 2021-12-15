@@ -28,6 +28,14 @@ export const reducer = (todos, action) => {
     case ACTIONS.DELETE_TODO:
       return todos.filter(todo => todo.id !== action.payload.id);
 
+    case ACTIONS.EDIT_TODO:
+      return todos.map(todo => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, name: todo.name };
+        }
+        return todo;
+      });
+
     case ACTIONS.DRAG_TODO:
       return dragTodos(action.payload, todos);
 
