@@ -2,6 +2,9 @@ import { useReducer, useContext, useEffect, useState, useRef } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { reducer } from '../context/AppReducer';
 import { ACTIONS } from '../context/GlobalContext';
+import { ImBin } from 'react-icons/im';
+import { RiEdit2Fill } from 'react-icons/ri';
+import { IoCheckmarkDoneCircle } from 'react-icons/io5';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -15,6 +18,20 @@ export default function TodoList() {
   const [listName, setListName] = useState('all');
   const inputRef = useRef();
   const [editor, setEditor] = useState('');
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const changeWidth = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', changeWidth);
+
+    return () => {
+      window.removeEventListener('resize', changeWidth);
+    };
+  }, []);
 
   function focus(todo) {
     inputRef.current.focus();
@@ -65,10 +82,15 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     });
                   }}
-                  className="p-2 bg-gray-700 text-stone-300 mr-2"
+                  className={
+                    todo.complete
+                      ? ' mr-2 text-xl dark:text-grayBlue100'
+                      : 'p-2 border border-gray-700 dark:border-grayBlue200 rounded text-gray-700 mr-2'
+                  }
                 >
-                  {todo.complete ? 'Uncheck' : 'Check'}
+                  {todo.complete ? <IoCheckmarkDoneCircle /> : ''}
                 </button>
+
                 <span
                   className={
                     todo.complete
@@ -82,9 +104,9 @@ export default function TodoList() {
                   onClick={() => {
                     focus(todo);
                   }}
-                  className="p-2 bg-gray-700 text-stone-300 "
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  edit
+                  <RiEdit2Fill />
                 </button>
                 <button
                   onClick={() =>
@@ -93,9 +115,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-2"
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  remove
+                  <ImBin />
                 </button>
               </li>
             )}
@@ -117,15 +139,19 @@ export default function TodoList() {
                 className="todo-items"
               >
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     dispatch({
                       type: ACTIONS.TOGGLE_TODO,
                       payload: { id: todo.id },
-                    })
+                    });
+                  }}
+                  className={
+                    todo.complete
+                      ? ' mr-2 text-xl dark:text-grayBlue100'
+                      : 'p-2 border border-gray-700 dark:border-grayBlue200 rounded text-gray-700 mr-2'
                   }
-                  className="p-2 bg-gray-700 text-stone-300 mr-2"
                 >
-                  {todo.complete ? 'Uncheck' : 'Check'}
+                  {todo.complete ? <IoCheckmarkDoneCircle /> : ''}
                 </button>
                 <span
                   className={
@@ -140,9 +166,9 @@ export default function TodoList() {
                   onClick={() => {
                     focus(todo);
                   }}
-                  className="p-2 bg-gray-700 text-stone-300 "
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  edit
+                  <RiEdit2Fill />
                 </button>
                 <button
                   onClick={() =>
@@ -151,9 +177,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-2"
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  remove
+                  <ImBin />
                 </button>
               </li>
             )}
@@ -175,15 +201,19 @@ export default function TodoList() {
                 className="todo-items"
               >
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     dispatch({
                       type: ACTIONS.TOGGLE_TODO,
                       payload: { id: todo.id },
-                    })
+                    });
+                  }}
+                  className={
+                    todo.complete
+                      ? ' mr-2 text-xl dark:text-grayBlue100'
+                      : 'p-2 border border-gray-700 dark:border-grayBlue200 rounded text-gray-700 mr-2'
                   }
-                  className="p-2 bg-gray-700 text-stone-300 mr-2"
                 >
-                  Check
+                  {todo.complete ? <IoCheckmarkDoneCircle /> : ''}
                 </button>
                 <span
                   className={
@@ -198,9 +228,9 @@ export default function TodoList() {
                   onClick={() => {
                     focus(todo);
                   }}
-                  className="p-2 bg-gray-700 text-stone-300 "
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  edit
+                  <RiEdit2Fill />
                 </button>
                 <button
                   onClick={() =>
@@ -209,9 +239,9 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-2"
+                  className="text-gray-700 dark:text-grayBlue100 ml-2"
                 >
-                  remove
+                  <ImBin />
                 </button>
               </li>
             )}
