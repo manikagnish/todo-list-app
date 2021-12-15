@@ -1,4 +1,4 @@
-import { useReducer, useContext, useEffect, useState } from 'react';
+import { useReducer, useContext, useEffect, useState, useRef } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { reducer } from '../context/AppReducer';
 import { ACTIONS } from '../context/GlobalContext';
@@ -13,11 +13,29 @@ export default function TodoList() {
   const { getName } = useContext(GlobalContext);
   const [name, setName] = getName;
   const [listName, setListName] = useState('all');
+  const inputRef = useRef();
+  const [editor, setEditor] = useState('');
+
+  function focus(todo) {
+    inputRef.current.focus();
+    inputRef.current.value = todo.name;
+    setEditor(todo.name);
+    dispatch({
+      type: ACTIONS.DELETE_TODO,
+      payload: { id: todo.id },
+    });
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
     dispatch({ type: ACTIONS.ADD_TODO, payload: name });
     setName('');
+  };
+
+  const handleEditSubmit = e => {
+    e.preventDefault();
+    dispatch({ type: ACTIONS.ADD_TODO, payload: editor });
+    setEditor('');
   };
 
   useEffect(() => {
@@ -54,12 +72,20 @@ export default function TodoList() {
                 <span
                   className={
                     todo.complete
-                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
-                      : 'text-slate-900 dark:text-grayBlue100hover'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through mr-auto'
+                      : 'text-slate-900 dark:text-grayBlue100hover mr-auto'
                   }
                 >
                   {todo.name}
                 </span>
+                <button
+                  onClick={() => {
+                    focus(todo);
+                  }}
+                  className="p-2 bg-gray-700 text-stone-300 "
+                >
+                  edit
+                </button>
                 <button
                   onClick={() =>
                     dispatch({
@@ -67,7 +93,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
+                  className="p-2 bg-gray-700 text-stone-300 ml-2"
                 >
                   remove
                 </button>
@@ -104,12 +130,20 @@ export default function TodoList() {
                 <span
                   className={
                     todo.complete
-                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
-                      : 'text-slate-900 dark:text-grayBlue100hover'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through mr-auto'
+                      : 'text-slate-900 dark:text-grayBlue100hover mr-auto'
                   }
                 >
                   {todo.name}
                 </span>
+                <button
+                  onClick={() => {
+                    focus(todo);
+                  }}
+                  className="p-2 bg-gray-700 text-stone-300 "
+                >
+                  edit
+                </button>
                 <button
                   onClick={() =>
                     dispatch({
@@ -117,7 +151,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
+                  className="p-2 bg-gray-700 text-stone-300 ml-2"
                 >
                   remove
                 </button>
@@ -154,12 +188,20 @@ export default function TodoList() {
                 <span
                   className={
                     todo.complete
-                      ? 'text-blueGray200 dark:text-grayBlue600 line-through '
-                      : 'text-slate-900 dark:text-grayBlue100hover'
+                      ? 'text-blueGray200 dark:text-grayBlue600 line-through mr-auto'
+                      : 'text-slate-900 dark:text-grayBlue100hover mr-auto'
                   }
                 >
                   {todo.name}
                 </span>
+                <button
+                  onClick={() => {
+                    focus(todo);
+                  }}
+                  className="p-2 bg-gray-700 text-stone-300 "
+                >
+                  edit
+                </button>
                 <button
                   onClick={() =>
                     dispatch({
@@ -167,7 +209,7 @@ export default function TodoList() {
                       payload: { id: todo.id },
                     })
                   }
-                  className="p-2 bg-gray-700 text-stone-300 ml-auto"
+                  className="p-2 bg-gray-700 text-stone-300 ml-2"
                 >
                   remove
                 </button>
@@ -191,15 +233,27 @@ export default function TodoList() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="text-black w-full rounded p-4 mb-4 shadow-xl"
-          placeholder="Create a new todo..."
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-      </form>
+      <div className="relative">
+        <form onSubmit={handleSubmit}>
+          <input
+            className="text-black w-full rounded p-4 mb-4 shadow-xl"
+            placeholder="Create a new todo..."
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </form>
+
+        <form onSubmit={handleEditSubmit}>
+          <input
+            type="text"
+            ref={inputRef}
+            className="text-black w-full rounded p-4 mb-4 bg-transparent absolute top-0 left-0 focus:bg-white"
+            placeholder="Create a new todo..."
+            value={editor}
+            onChange={e => setEditor(e.target.value)}
+          />
+        </form>
+      </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="tasks">
