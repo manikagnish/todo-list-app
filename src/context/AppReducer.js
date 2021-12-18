@@ -4,14 +4,6 @@ function newTodos(name) {
   return { id: Date.now(), name: name, complete: false };
 }
 
-function dragTodos(result, todos) {
-  const items = Array.from(todos);
-  const [reorderItem] = items.splice(result.origin, 1);
-  items.splice(result.des, 0, reorderItem);
-
-  return items;
-}
-
 export const reducer = (todos, action) => {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
@@ -35,9 +27,6 @@ export const reducer = (todos, action) => {
         }
         return todo;
       });
-
-    case ACTIONS.DRAG_TODO:
-      return dragTodos(action.payload, todos);
 
     default:
       return todos;

@@ -5,7 +5,6 @@ export const ACTIONS = {
   TOGGLE_TODO: 'toggle-todo',
   DELETE_TODO: 'delete-todo',
   EDIT_TODO: 'edit-todo',
-  DRAG_TODO: 'drag-todo',
 };
 
 export const GlobalContext = createContext();
